@@ -6,6 +6,7 @@ const app = express();
 const PORT = process.env.PORT;
 
 interface Post {
+  id: number;
   title: string;
   content: string;
 }
@@ -17,7 +18,8 @@ app.use(express.json());
 
 app.post("/posts", (req, res) => {
   const { title, content } = req.body;
-  const newPost = { title, content };
+  const id = posts.length + 1;
+  const newPost = { id, title, content };
   posts.push(newPost);
   res.json(newPost);
 });
@@ -28,7 +30,7 @@ app.get("/posts", (req, res) => {
 
 app.get("/posts/:id", (req, res) => {
   const id = Number(req.params.id);
-  const post = posts[id];
+  const post = posts.find((post) => post.id === id);
   res.json(post);
 });
 
