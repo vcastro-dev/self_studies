@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import "dotenv/config";
 
 const app = express();
@@ -11,6 +12,7 @@ interface Post {
 
 const posts: Post[] = [];
 
+app.use(cors());
 app.use(express.json());
 
 app.post("/posts", (req, res) => {
